@@ -40,7 +40,7 @@ systemctl enable mongod &>> $LOGFILE
 
 VALIDATE $? " Enabling MongoDB"
 
-systemctl start MongoDB &>> $LOGFILE
+systemctl start Mongod &>> $LOGFILE
 
 VALIDATE $? "Starting MOngoDB"
 
