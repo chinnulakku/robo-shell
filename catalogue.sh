@@ -38,11 +38,11 @@ VALIDATE $? "Enabling nodejs:18"
 
 dnf install nodejs -y &>> $LOGFILE
 
-VALIDATE $? " Installing nodejs:18"
+VALIDATE $? "Installing nodejs:18"
 
 useradd roboshop &>> $LOGFILE
 
-VALIDATE $? " creating roboshop user" 
+VALIDATE $? "creating roboshop user" 
 
 mkdir /app &>> $LOGFILE
 
@@ -72,15 +72,15 @@ VALIDATE $? "catalogue daemon reload"
 
 systemctl enable catalogue &>> $LOGFILE
 
-VALIDATE $? " Enable catalogue"
+VALIDATE $? "Enable catalogue"
 
 systemctl start catalogue &>> $LOGFILE
 
-VALIDATE $? "start catalogue"
+VALIDATE $? "Start catalogue"
 
 cp /home/centos/robo-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
-VALIDATE $? "copying mongodb repo"
+VALIDATE $? "Copying mongodb repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
 
