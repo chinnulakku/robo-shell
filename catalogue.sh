@@ -83,9 +83,9 @@ systemctl start catalogue &>> $LOGFILE
 
 VALIDATE $? "Start catalogue"
 
-cp /home/centos/robo-shell/mongodb.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp /home/centos/robo-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
-VALIDATE $? "Copying mongodb repo"
+VALIDATE $? "Copying mongo repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
 
