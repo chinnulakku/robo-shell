@@ -30,10 +30,6 @@ else
     echo " you are the root user"
 fi
 
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
-
-VALIDATE $? "Installing Remi release"
-
 dnf module enable redis:remi-6.2 -y &>> $LOGFILE
 
 VALIDATE $? " Enabling Redis"
