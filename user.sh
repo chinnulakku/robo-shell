@@ -57,11 +57,11 @@ VALIDATE $? " Downloading you application"
 
 cd /app
 
-unzip /tmp/user.zip &>> $ LOGFILE
+unzip /tmp/user.zip  &>> $LOGFILE
 
 VALIDATE $? " Unzipping user"
 
-npm install &>> $LOGFILE
+npm install  &>> $LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
@@ -87,7 +87,7 @@ VALIDATE $? "copying mongo repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
 
-VALIDATE $? " Installing MONGODB client"
+VALIDATE $? " Installing mongodb client"
 
 mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOGFILE
 
