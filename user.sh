@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ID=$(id -ne 0)
+ID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -39,7 +39,7 @@ VALIDATE $? "Enabling nodejs:18"
 
 id roboshop
 
-if[ $? -ne 0 ]
+if [ $? -ne 0 ]
 then
     useradd roboshop
     VALIDATE $? " roboshop user creation"
