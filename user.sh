@@ -63,7 +63,7 @@ VALIDATE $? " Unzipping user"
 
 npm install  &>> $LOGFILE
 
-VALIDATE $? "Installing dependencies"
+VALIDATE $? "Installing Dependencies"
 
 cp /home/centos/robo-shell/user.service /etc/systemd/system/user.service
 
