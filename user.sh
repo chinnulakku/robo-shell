@@ -5,6 +5,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+MONGODB_HOST=mongodb.sudhaaru676.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE=/tmp/$0-$TIMESTAMP.log
@@ -64,6 +65,30 @@ npm install &>> $LOGFILE
 
 VALIDATE $? "Installing dependencies"
 
+cp /home/centos/robo-shell/user.service /etc/systemd/system/user.service
+
+VALIDATE $? "copying user service"
+
+systemctl daemon-reload &>> $LOGFILE
+
+VALIDATE $? "User daemon reload"
+
+systemctl enable user &>> $LOGFILE
+
+VALIDATE $? "Enabling user"
+
+systemctl start user &>> $LOGFILE
+
+VALIDATE $? "Starting user"
+
 cp /home/centos/robo-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
-VALIDATE $? "copying mp
+VALIDATE $? "copying mongo repo"
+
+dnf install mongodb-org-shell -y &>> $LOGFILE
+
+VALIDATE $? " Installing MONGODB client"
+
+mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOGFILE
+
+VALIDATE $? "Loading user data into MongoDB"

@@ -8,10 +8,11 @@ N="\e[0m"
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
+exec &>$LOGFILE
 
 echo "script started executing at $TIMESTAMP" &>> $LOGFILE
 
-VALIDATE() {
+VALIDATE(){
     if [ $1 -ne 0 ]
     then
         echo -e "$2...$R FAILED $N"
@@ -21,32 +22,34 @@ VALIDATE() {
     fi
 }
 
-if [ $? -ne 0 ]
+if [ $ID -ne 0 ]
 then
-    echo -e "ERROR:: Please run this script with root access"
+    echo -e "$R ERROR:: Please run this script with root access"
     exit 1
 else
     echo " you are the root user"
 fi
 
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
+
+VALIDATE $? "Installing Remi release"
+
 dnf module enable redis:remi-6.2 -y &>> $LOGFILE
 
-VALIDATE $? " Enabling Redis remi-6.2"
+VALIDATE $? " Enabling Redis"
 
 dnf install redis -y &>> $LOGFILE
 
-VALIDATE $? "Installing redis"
+VALIDATE $? "Installing Redis"
 
-cp /home/centos/robo-shell/etc/redis.conf&/etc/redis/redis.conf
+sed -i 's/127.0.0.1/0.0.0.0/g' etc/redis/redis.conf
 
-VALIDATE $? "Coping the redis-config file"
+VALIDATE $? "allowing remote connections"
 
-sed -i 's/127.0.0.1 to 0.0.0.0'
+systemctl enable redis 
 
-systemctl enable redis &>> $LOGFILE
+VALIDATE $? " Enabling Redis"
 
-VALIDATE $? " Enabling redis"
+systemctl start  redis 
 
-systemctl start  redis &>> $LOGFILE
-
-VALIDATE $? "Starting redis"
+VALIDATE $? "Starting Redis"
