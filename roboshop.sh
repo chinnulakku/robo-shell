@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AMI=ami-0b4f379183e5706b9#this keeps on changing
+AMI=ami-0b4f379183e5706b9 #this keeps on changing
 SG_ID=sg-07957a62a02bbb06f #replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
 ZONE_ID=Z09573743NJX84U96S4BB # replace your zone ID
@@ -37,4 +37,5 @@ do
         }]
     }
         '
+        
 done
